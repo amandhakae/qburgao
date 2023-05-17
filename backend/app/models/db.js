@@ -14,4 +14,5 @@ connection.connect(error=> {
  console.log("banco de dados conectado!");
     });
     
+//nova conexao com sql
 module.exports = connection;
