@@ -16,4 +16,22 @@ ProdutoModel.findById = (produtoId, result) => {
 //seleciona todos os produtos
 ProdutoModel.getAll = result =>{
 };
-module.exports = ProdutoModel;
+//Atualizar produto por ID
+
+ProdutoModel.updateById = (produtoId, produto, result) => {
+
+};
+
+//Remover produto por ID
+
+ProdutoModel.remove = (produtoId, result) => {
+
+};
+
+//Remover todos os produtos
+
+ProdutoModel.removeAll = (result) => {
+
+};
+
+module.exports = ProdutoModel
