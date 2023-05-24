@@ -15,6 +15,16 @@ ProdutoModel.findById = (produtoId, result) => {
 
 //seleciona todos os produtos
 ProdutoModel.getAll = result =>{
+    sql.query("SELECT * FROM produtos", (err, res) => {
+        if (err) {
+            console.log("erro: ", err);
+            result(null, err);
+            return;
+        }
+        
+        console.log("produto: ",res);
+        result(null, res);
+    })
 };
 //Atualizar produto por ID
 
@@ -34,4 +44,4 @@ ProdutoModel.removeAll = (result) => {
 
 };
 
-module.exports = ProdutoModel
+module.exports = ProdutoModel;
