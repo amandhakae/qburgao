@@ -1,17 +1,18 @@
-const produtoModel = require("../models/produto.model");
+const produtos_pedidosModel = require("../models/produtos_pedidos.model");
 
 exports.create = (req, res) => {
-    if(!req.body.nome || ! req.body.valor){
+    if(!req.body.observacao || !req.body.produtos_idprodutos || !req.body.pedidos_idpedidos){
         res.status(400).send({
-            message: "Conteúdo do corpo da requisição vazia."
+            message: "Conteúdo do corpo da requisição vazia"
         });
     }else {
-        const produto = new produtoModel({
-            nome: req.body.nome,
-            valor: req.body.valor
+        const produtos_pedidos = new produtos_pedidosModel({
+            observacao: req.body.observacao,
+            produtos_idprodutos: req.body.produtos_idprodutos,
+            pedidos_idpedidos: req.body.pedidos_idpedidos,
         });
 
-        produtoModel.create(produto, (err, data) =>{
+        produtos_pedidosModel.create(produtos_pedidos, (err, data) =>{
             if(err){
                 res.status(500).send({
                     message: err.message || "Ocorreu um erro ao inserir os dados"
@@ -23,7 +24,7 @@ exports.create = (req, res) => {
     }
 }
 exports.findAll = (req, res) => {
-    produtoModel.getAll((err, data) => {
+    produtos_pedidosModel.getAll((err, data) => {
         if (err){
             res.status(500).send({
                 message: err.message || "Ocorreu algum erro desconhecido"
@@ -36,15 +37,15 @@ exports.findAll = (req, res) => {
 exports.findById = (req, res) => {
 
 
-        produtoModel.findById(req.params.produtoId, (err,data) => {
+    produtos_pedidosModel.findById(req.params.produtos_pedidosId, (err,data) => {
             if (err){
                 if(err.type == "not_found"){
                     res.status(404).send({
-                        message: "Produto não encontrado. ID: "+req.params.produtoId
+                        message: "Produto não encontrado. ID: "+req.params.produtos_pedidosId
                     });
                 } else {
                     res.status(500).send({
-                        message: "Erro ao retornar o produto com ID: "+req.prams.produtoId
+                        message: "Erro ao retornar o produto com ID: "+req.prams.produtos_pedidosId
                     });
                 }
             } else {
@@ -54,18 +55,20 @@ exports.findById = (req, res) => {
     }
 
 exports.update = (req, res) => {
-    if(!req.body.nome || !req.body.valor){
+    if(!req.body.observacao || !req.body.produtos_idprodutos ||! req.body.pedidos_idpedidos ){
         res.status(400).send({
             message: "Conteúdo do corpo de requisição vazia."
         });
     }else{
-        const produto = new produtoModel({
-            nome: req.body.nome,
-            valor: req.body.valor
+        const produtos_pedidos = new produtos_pedidosModel({
+            observacao: req.body.observacao,
+            produtos_idprodutos: req.body.produtos_idprodutos,
+            pedidos_idpedidos: req.body.pedidos_idpedidos,
+
         });
     
 
-        produtoModel.updateById(req.params.produtoId, produto, (err, data) => {
+        produtos_pedidosModel.updateById(req.params.produtos_pedidosId, produtos_pedidos, (err, data) => {
             if(err){
                 if(err.type == "not_found") {
                     res.status(404).send({
@@ -84,7 +87,7 @@ exports.update = (req, res) => {
     }
 }
 exports.delete = (req, res) => {
-    produtoModel.remove(req.params.produtoId, (err, data) =>{
+    produtos_pedidosModel.remove(req.params.produtos_pedidosId, (err, data) =>{
         if(err){
             if(err.type == "not_found"){
                 res.status(404).send({message:"Produto não encontrado."})
@@ -97,7 +100,7 @@ exports.delete = (req, res) => {
     })
 }
 exports.deleteAll = (req,res) => {
-    produtoModel.removeAll((err, data) =>{
+    produtos_pedidosModel.removeAll((err, data) =>{
         if (err){
             res.status(500).send({message: "Erro ao deletar produto."})
         }else{

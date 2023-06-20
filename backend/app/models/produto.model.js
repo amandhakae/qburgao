@@ -73,13 +73,30 @@ ProdutoModel.updateById = (produtoId, produto, result) => {
 //Remover produto por ID
 
 ProdutoModel.remove = (produtoId, result) => {
-
+sql.query("DELETE FROM produtos WHERE idprodutos = ?", produtoId, (err, res) =>{
+    if(err){
+        console.log("erro: ", err);
+        result(err, null);
+    }else if (res.affectedRows == 0) {
+        result({ type: "not_found"}, null);
+    }else{
+        result(null, res);
+    }
+});
 };
 
 //Remover todos os produtos
 
 ProdutoModel.removeAll = (result) => {
+    sql.query("DELETE FROM produtos ", produtoId, (err, res) =>{
+        if(err){
+            console.log("erro: ", err);
+            result(err, null);
+        }else{
+            result(null, res);
+        }
+    });
+    };
 
-};
 
 module.exports = ProdutoModel;

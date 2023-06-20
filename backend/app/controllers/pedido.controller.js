@@ -1,4 +1,4 @@
-const produtoModel = require("../models/produto.model");
+const pedidoModel = require("../models/pedido.model");
 
 exports.create = (req, res) => {
     if(!req.body.nome || ! req.body.valor){
@@ -6,12 +6,12 @@ exports.create = (req, res) => {
             message: "Conteúdo do corpo da requisição vazia."
         });
     }else {
-        const produto = new produtoModel({
+        const pedido = new pedidoModel({
             nome: req.body.nome,
             valor: req.body.valor
         });
 
-        produtoModel.create(produto, (err, data) =>{
+        pedidoModel.create(pedido, (err, data) =>{
             if(err){
                 res.status(500).send({
                     message: err.message || "Ocorreu um erro ao inserir os dados"
@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     }
 }
 exports.findAll = (req, res) => {
-    produtoModel.getAll((err, data) => {
+    pedidoModel.getAll((err, data) => {
         if (err){
             res.status(500).send({
                 message: err.message || "Ocorreu algum erro desconhecido"
@@ -36,15 +36,15 @@ exports.findAll = (req, res) => {
 exports.findById = (req, res) => {
 
 
-        produtoModel.findById(req.params.produtoId, (err,data) => {
+        pedidoModel.findById(req.params.pedidoId, (err,data) => {
             if (err){
                 if(err.type == "not_found"){
                     res.status(404).send({
-                        message: "Produto não encontrado. ID: "+req.params.produtoId
+                        message: "pedido não encontrado. ID: "+req.params.pedidoId
                     });
                 } else {
                     res.status(500).send({
-                        message: "Erro ao retornar o produto com ID: "+req.prams.produtoId
+                        message: "Erro ao retornar o pedido com ID: "+req.prams.pedidoId
                     });
                 }
             } else {
@@ -59,21 +59,21 @@ exports.update = (req, res) => {
             message: "Conteúdo do corpo de requisição vazia."
         });
     }else{
-        const produto = new produtoModel({
+        const pedido = new pedidoModel({
             nome: req.body.nome,
             valor: req.body.valor
         });
     
 
-        produtoModel.updateById(req.params.produtoId, produto, (err, data) => {
+        pedidoModel.updateById(req.params.pedidoId, pedido, (err, data) => {
             if(err){
                 if(err.type == "not_found") {
                     res.status(404).send({
-                        message: "Produto não encontrado."
+                        message: "Pedido não encontrado."
                     })
                 }else{
                     res.status(500).send({
-                        message: "Erro ao atualizar produto."
+                        message: "Erro ao atualizar pedido."
                     })
                 }
                 }else{
@@ -84,24 +84,24 @@ exports.update = (req, res) => {
     }
 }
 exports.delete = (req, res) => {
-    produtoModel.remove(req.params.produtoId, (err, data) =>{
+    pedidoModel.remove(req.params.pedidoId, (err, data) =>{
         if(err){
             if(err.type == "not_found"){
-                res.status(404).send({message:"Produto não encontrado."})
+                res.status(404).send({message:"Pedido não encontrado."})
             }else{
-                res.status(500).send({message:" Erro ao deletar produto."})
+                res.status(500).send({message:" Erro ao deletar pedido."})
             }
         }else {
-            res.send({message:"Produto deletado com sucesso."});
+            res.send({message:"Pedido deletado com sucesso."});
         }
     })
 }
 exports.deleteAll = (req,res) => {
-    produtoModel.removeAll((err, data) =>{
+    pedidoModel.removeAll((err, data) =>{
         if (err){
-            res.status(500).send({message: "Erro ao deletar produto."})
+            res.status(500).send({message: "Erro ao deletar pedido."})
         }else{
-            res.send({message: "Todos os produtos foram deletados com sucesso."})
+            res.send({message: "Todos os pedidos foram deletados com sucesso."})
         }
     })
 }
