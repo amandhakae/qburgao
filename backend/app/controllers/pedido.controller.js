@@ -1,14 +1,14 @@
 const pedidoModel = require("../models/pedido.model");
 
 exports.create = (req, res) => {
-    if(!req.body.nome || ! req.body.valor){
+    if(!req.body.hora || ! req.body.status){
         res.status(400).send({
             message: "Conteúdo do corpo da requisição vazia."
         });
     }else {
         const pedido = new pedidoModel({
-            nome: req.body.nome,
-            valor: req.body.valor
+            hora: req.body.hora,
+            status: req.body.status
         });
 
         pedidoModel.create(pedido, (err, data) =>{
@@ -54,14 +54,14 @@ exports.findById = (req, res) => {
     }
 
 exports.update = (req, res) => {
-    if(!req.body.nome || !req.body.valor){
+    if(!req.body.hora || !req.body.status){
         res.status(400).send({
             message: "Conteúdo do corpo de requisição vazia."
         });
     }else{
         const pedido = new pedidoModel({
-            nome: req.body.nome,
-            valor: req.body.valor
+            hora: req.body.hora,
+            status: req.body.status
         });
     
 

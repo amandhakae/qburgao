@@ -1,8 +1,8 @@
 const sql = require("./db.js");
 //construtor
 const PedidoModel = function(pedido){
-    this.nome = pedido.nome;
-    this.valor = pedido.valor;
+    this.hora = pedido.hora;
+    this.status = pedido.status;
 }
 
 //cria novo pedido no banco
@@ -56,8 +56,8 @@ PedidoModel.getAll = result =>{
 //Atualizar produto por ID
 
 PedidoModel.updateById = (pedidoId, pedido, result) => {
-    sql.query("UPDATE pedidos SET nome = ?, valor = ? WHERE idpedidos = ? ",
-    [pedido.nome, pedido.valor, pedidoId], (err, res) => {
+    sql.query("UPDATE pedidos SET hora = ?, status = ? WHERE idpedidos = ? ",
+    [pedido.hora, pedido.status, pedidoId], (err, res) => {
         if (err){
             console.log("erro: ", err);
             result(null, err);
