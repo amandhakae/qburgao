@@ -2,7 +2,7 @@ module.exports = app => {
     const produtoController = require("../controllers/produto.controller");
     const authJwt = require("../middlewares/auth_jwt_middleware.js");
     //rota para criar um novo registro produto
-    app.post("/produtos",[authJwt.verifyToken, authJwt.isAdmin], produtoController.create);
+    app.post("/produtos",[authJwt.verifyToken, authJwt.isBalcao], produtoController.create);
     
     //buscar todos os registros de produtos
     app.get("/produtos", produtoController.findAll);
