@@ -9,7 +9,7 @@ database: dbConfig.DB,
 port: dbConfig.PORT
 });
 
-connection.connect(error=> {
+connection.connect(error => {
  if (error) throw error;
  console.log("banco de dados conectado!");
     });
